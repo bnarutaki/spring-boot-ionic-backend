@@ -1,5 +1,6 @@
 package com.binaru.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class CategoriaService {
 	@Autowired
 	CategoriaRepository repo;
 	
+
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> ob = repo.findById(id);
 		return ob.orElse(null);
