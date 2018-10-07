@@ -1,6 +1,5 @@
 package com.binaru.cursomc.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.binaru.cursomc.domain.Categoria;
 import com.binaru.cursomc.repositories.CategoriaRepository;
+import com.binaru.cursomc.services.exception.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -18,6 +18,8 @@ public class CategoriaService {
 
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> ob = repo.findById(id);
-		return ob.orElse(null);
+		return ob.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto nao encontrao! Id = " + id + ", Tipo:" 
+				+ Categoria.class.getName()));
 	}
 }
