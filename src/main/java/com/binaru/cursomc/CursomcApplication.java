@@ -14,6 +14,7 @@ import com.binaru.cursomc.domain.Cidade;
 import com.binaru.cursomc.domain.Cliente;
 import com.binaru.cursomc.domain.Endereco;
 import com.binaru.cursomc.domain.Estado;
+import com.binaru.cursomc.domain.ItemPedido;
 import com.binaru.cursomc.domain.PagamentoComBoleto;
 import com.binaru.cursomc.domain.PagamentoComCartao;
 import com.binaru.cursomc.domain.Pedido;
@@ -25,6 +26,7 @@ import com.binaru.cursomc.repositories.CidadeRepository;
 import com.binaru.cursomc.repositories.ClienteRepository;
 import com.binaru.cursomc.repositories.EnderecoRepository;
 import com.binaru.cursomc.repositories.EstadoRepository;
+import com.binaru.cursomc.repositories.ItemPedidoRepository;
 import com.binaru.cursomc.repositories.PagamentoRepository;
 import com.binaru.cursomc.repositories.PedidoRepository;
 import com.binaru.cursomc.repositories.ProdutoRepository;
@@ -54,6 +56,9 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository; 
+
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository; 
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -118,6 +123,20 @@ public class CursomcApplication implements CommandLineRunner{
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped1));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(p1, ped1, 0.0, 1, 2000.0);
+		ItemPedido ip2 = new ItemPedido(p3, ped1, 0.0, 2, 80.0);
+		ItemPedido ip3 = new ItemPedido(p2, ped2, 100.0, 1, 800.0);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		
 	}
 	
 	
