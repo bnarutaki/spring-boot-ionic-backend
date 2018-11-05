@@ -16,7 +16,7 @@ public class PedidoService {
 	PedidoRepository repo;
 	
 
-	public Pedido buscar(Integer id) {
+	public Pedido find(Integer id) {
 		Optional<Pedido> ob = repo.findById(id);
 		return ob.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto nao encontrao! Id = " + id + ", Tipo:" 
